@@ -1,11 +1,10 @@
-import { Button } from 'antd';
+import Header from "./components/header/Header";
 
 function App() {
   return (
-   <div>
-    <Button type="primary">Primary Button</Button>
-    <h1 className="text-3xl font-bold underline text-red-600">helloWorld!</h1>
-   </div>
+    <div>
+      <Header />
+    </div>
   );
 }
 
