@@ -1,6 +1,6 @@
 const Categories = () => {
   return (
-    <ul className="flex flex-col gap-4 text-center">
+    <ul className="flex md:flex-col gap-4 text-center">
       <li className="bg-green-700 px-6 py-10 text-white cursor-pointer hover:bg-pink-700 transition-all ease-in rounded-[7px] min-w-[145px]">
         <span>All</span>
       </li>
