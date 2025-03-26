@@ -1,5 +1,6 @@
 import Categories from "./components/categories/Categories";
 import Header from "./components/header/Header";
+import Products from "./components/products/Products";
 
 function App() {
   return (
@@ -14,7 +15,7 @@ function App() {
         </div>
         {/* Products */}
         <div className="products flex-[8]">
-          <div className="">products</div>
+          <Products />
         </div>
         {/* Cart Totals */}
         <div className="">
