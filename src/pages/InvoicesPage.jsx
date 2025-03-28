@@ -2,7 +2,7 @@ import Header from "../components/header/Header"
 import { Button, Table } from "antd";
 import { Card } from 'antd';
 import { useState } from "react";
-import PrintInvoices from "../components/invoices/PrintInvoices";
+import PrintInvoice from "../components/invoices/PrintInvoice";
 
 const InvoicesPage = () => {
      
@@ -60,7 +60,7 @@ return (
       </div>
     </div>
 
-    <PrintInvoices isModalOpen={isModalOpen} setIsModalOpen={setIsModalOpen} />
+    <PrintInvoice isModalOpen={isModalOpen} setIsModalOpen={setIsModalOpen} />
     </>
   )
 }
