@@ -1,4 +1,5 @@
-import { SearchOutlined, HomeOutlined, ShoppingCartOutlined, CopyOutlined, UserOutlined, BarChartOutlined, LogoutOutlined } from '@ant-design/icons';
+import { SearchOutlined, HomeOutlined, ShoppingCartOutlined, CopyOutlined, UserOutlined, LogoutOutlined } from '@ant-design/icons';
+// import { BarChartOutlined} from '@ant-design/icons';
 import { Badge, Input } from "antd";
 import { Link } from "react-router-dom";
 
@@ -43,10 +44,10 @@ const Header = () => {
             <span className="md:text-xs text-[10px]">Customers</span>
           </Link>
 
-          <Link to={"/statistic"} className="menu-link flex flex-col items-center hover:text-[#40a9ff] transition-all">
+          {/* <Link to={"/statistic"} className="menu-link flex flex-col items-center hover:text-[#40a9ff] transition-all">
             <BarChartOutlined className="md:text-2xl text-xl" />
             <span className="md:text-xs text-[10px]">Statistic</span>
-          </Link>
+          </Link> */}
 
           <Link to={"/"} className="menu-link flex flex-col items-center hover:text-[#40a9ff] transition-all">
             <LogoutOutlined className="md:text-2xl text-xl" />
