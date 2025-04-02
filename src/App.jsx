@@ -3,6 +3,7 @@ import HomePage from "./pages/HomePage";
 import CartPage from "./pages/CartPage";
 import InvoicesPage from "./pages/InvoicesPage";
 import CustomersPage from "./pages/CustomersPage";
+import Register from "./pages/auth/Register";
 // import StatisticPage from "./pages/StatisticPage";
 
 function App() {
@@ -15,6 +16,7 @@ function App() {
         <Route path="/invoices" element={<InvoicesPage />} />
         <Route path="/customers" element={<CustomersPage />} />
         {/* <Route path="/statistic" element={<StatisticPage />} /> */}
+        <Route path="/register" element={<Register />} />
       </Routes>
      </BrowserRouter>
     </>
