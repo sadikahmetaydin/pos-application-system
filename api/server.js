@@ -9,6 +9,7 @@ const port = 5000;
 const categoryRoute = require("./routes/categories.js");
 const productRoute = require("./routes/products.js");
 const invoiceRoute = require("./routes/invoices.js");
+const authRoute = require("./routes/auth.js");
 
 dotenv.config();
 
@@ -28,6 +29,7 @@ app.use(cors());
 app.use("/api/categories", categoryRoute);
 app.use("/api/products", productRoute);
 app.use("/api/invoices", invoiceRoute);
+app.use("/api/auth", authRoute);
 
 app.listen(port, () => {
   console.log(`App listening on port ${port}`);
