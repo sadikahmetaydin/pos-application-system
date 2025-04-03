@@ -10,7 +10,7 @@ const InvoiceSchema = mongoose.Schema(
     tax: { type: Number, require: true },
     totalAmount: { type: Number, require: true },
   },
-  { timestamp: true }
+  { timestamps: true }
 );
 
 const Invoice = mongoose.model("invoices", InvoiceSchema);

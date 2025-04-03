@@ -6,7 +6,7 @@ const UserSchema = mongoose.Schema(
     email: { type: String, require: true },
     password: { type: String, require: true },
   },
-  { timestamp: true }
+  { timestamps: true }
 );
 
 const User = mongoose.model("users", UserSchema);

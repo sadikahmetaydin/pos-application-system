@@ -4,7 +4,7 @@ const CategorySchema = mongoose.Schema(
   {
     title: { type: String, require: true },
   },
-  { timestamp: true }
+  { timestamps: true }
 );
 
 const Category = mongoose.model("categories", CategorySchema);
