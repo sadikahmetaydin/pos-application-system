@@ -28,7 +28,7 @@ const Categories = ({ categories, setCategories }) => {
       </li>
 
      <Add isAddModalOpen={isAddModalOpen} setIsAddModalOpen={setIsAddModalOpen} categories={categories} setCategories={setCategories} />
-     <Edit isEditModalOpen={isEditModalOpen} setIsEditModalOpen={setIsEditModalOpen} />
+     <Edit isEditModalOpen={isEditModalOpen} setIsEditModalOpen={setIsEditModalOpen} categories={categories} setCategories={setCategories} />
     </ul>
   );
 };
