@@ -21,7 +21,20 @@ const Register = () => {
               <Input.Password />
             </Form.Item>
 
-            <Form.Item label="Password Again" name={"passwordAgain"} rules={[{required: true, message: "Please Enter Password Again!"}]}>
+            <Form.Item label="Password Again" name={"passwordAgain"} dependencies={["password"]} rules={[{required: true, message: "Please Enter Password Again!"},
+              ({ getFieldValue }) => ({
+                validator(_, value) {
+                  if (!value || getFieldValue("password") === value) {
+                    return Promise.resolve();
+                  }
+                  return Promise.reject(
+                    new Error(
+                      "Passwords must be the same!"
+                    )
+                  );
+                },
+              }),
+            ]}>
               <Input.Password />
             </Form.Item>
 
