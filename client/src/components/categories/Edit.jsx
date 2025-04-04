@@ -21,8 +21,25 @@ const Edit = ({ isEditModalOpen, setIsEditModalOpen, categories, setCategories }
         })
       );
     } catch (error) {
-      message.warning("Someting went wrong!")
+      message.error("Someting went wrong!")
       console.log(error);
+    }
+  };
+
+  const deleteCategory = (id) => {
+    if (window.confirm("Are you sure?")) {
+      try {
+        fetch("http://localhost:5000/api/categories/delete-category", {
+          method: "DELETE",
+          body: JSON.stringify({ categoryId: id }),
+          headers: { "Content-type": "application/json; charset=UTF-8"},
+        });
+        message.success("Category deleted successfully.");
+        setCategories(categories.filter((item) => item._id !== id));
+      } catch (error) {
+        message.error("Something went wrong!");
+        console.log(error);
+      }
     }
   }
 
@@ -45,12 +62,12 @@ const Edit = ({ isEditModalOpen, setIsEditModalOpen, categories, setCategories }
     {
       title: "Action",
       dataIndex: "action",
-      render: (text, record) => {
+      render: (_, record) => {
         return (
           <div className="">
             <Button type="link" onClick={() => setEditingRow(record)} className="pl-0">Edit</Button>
             <Button type="link" htmlType="submit" className="!text-gray-500">Save</Button>
-            <Button type="link" danger>Delete</Button>
+            <Button type="link" danger onClick={() => deleteCategory(record._id)}>Delete</Button>
           </div>
         )
       }
@@ -65,4 +82,4 @@ const Edit = ({ isEditModalOpen, setIsEditModalOpen, categories, setCategories }
     </Modal>
   )
 }
-export default Edit
+export default Edit;
