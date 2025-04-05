@@ -13,7 +13,7 @@ const HomePage = () => {
       try {
         const res = await fetch("http://localhost:5000/api/categories/get-all");
         const data = await res.json();
-        setCategories(data);
+        data && setCategories(data.map((item) => {return {...item, value: item.title}}));
       } catch (error) {
         console.log(error);
       }
@@ -34,7 +34,7 @@ const HomePage = () => {
         </div>
         {/* Products */}
         <div className="products flex-[8] max-h-[calc(100vh_-_112px)] overflow-y-auto pb-10">
-          <Products />
+          <Products categories={categories} />
         </div>
         {/* Cart Totals */}
         <div className="cart-wrapper min-w-[300px] md:-mr-[24px] md:-mt-[24px] border">
