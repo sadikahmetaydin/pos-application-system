@@ -7,6 +7,7 @@ import Register from "./pages/auth/Register";
 import Login from "./pages/auth/Login";
 import ProductPage from "./pages/ProductPage";
 // import StatisticPage from "./pages/StatisticPage";
+import '@ant-design/v5-patch-for-react-19';
 
 function App() {
   return (
