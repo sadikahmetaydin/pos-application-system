@@ -1,12 +1,12 @@
 import { addProduct } from "../../redux/cartSlice";
-import { useDispatch, useSelector } from "react-redux";
+import { useDispatch } from "react-redux";
 
 const ProductItem = ({ item }) => {
 
   const dispatch = useDispatch();
 
   const handleClick = () => {
-    dispatch(addProduct(item));
+    dispatch(addProduct({...item, quantity: 1}));
   };
 
   return (
