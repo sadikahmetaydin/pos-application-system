@@ -6,7 +6,7 @@ import { deleteCart } from "../../redux/cartSlice";
 
 const CartTotals = () => {
 
-  const { cartItems } = useSelector((state) => state.cart);
+  const cart = useSelector((state) => state.cart);
   const dispatch = useDispatch();
 
   return (
@@ -15,7 +15,7 @@ const CartTotals = () => {
 
       <ul className="cart-items px-2 flex flex-col gap-y-3 py-2 overflow-y-auto">
         {
-          cartItems.map((item) => (
+          cart.cartItems.map((item) => (
             <li className="cart-item flex justify-between" key={item._id}>
               <div className="flex items-center">
                 <img src={item.img} alt="" className="w-16 h-16 object-cover pt-2 cursor-pointer" onClick={() => dispatch(deleteCart(item))} />
@@ -40,12 +40,12 @@ const CartTotals = () => {
         <div className="border-t border-b">
           <div className="flex justify-between p-2">
             <b>Subtotal</b>
-            <span>99₺</span>
+            <span>{cart.total > 0 ? (cart.total).toFixed(2) : 0}₺</span>
           </div>
 
           <div className="flex justify-between p-2">
-            <b>TAX %8</b>
-            <span className="text-red-700">+7.92₺</span>
+            <b>TAX %{cart.tax}</b>
+            <span className="text-red-700">{ (cart.total * cart.tax) / 100 > 0 ? "+" + ((cart.total * cart.tax) / 100).toFixed(2) : 0}₺</span>
           </div>
         </div>
       </div>
@@ -54,7 +54,7 @@ const CartTotals = () => {
       <div className="border-b mt-4">
         <div className="flex justify-between p-2">
           <b className="text-xl text-green-500">General Total</b>
-          <span className="text-xl">99₺</span>
+          <span className="text-xl">{cart.total + (cart.total * cart.tax) / 100 > 0 ? (cart.total + (cart.total * cart.tax) / 100).toFixed(2) : 0}₺</span>
         </div>
       </div>
 
