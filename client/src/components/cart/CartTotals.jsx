@@ -1,8 +1,8 @@
-import { Button } from "antd";
+import { Button, message } from "antd";
 import { ClearOutlined, MinusCircleOutlined, PlusCircleOutlined } from "@ant-design/icons";
 import { useSelector } from "react-redux";
 import { useDispatch } from "react-redux";
-import { deleteCart, increase, decrase } from "../../redux/cartSlice";
+import { deleteCart, increase, decrase, reset } from "../../redux/cartSlice";
 
 const CartTotals = () => {
 
@@ -18,7 +18,11 @@ const CartTotals = () => {
           cart.cartItems.length > 0 ? cart.cartItems.map((item) => (
             <li className="cart-item flex justify-between" key={item._id}>
               <div className="flex items-center">
-                <img src={item.img} alt="" className="w-16 h-16 object-cover pt-2 cursor-pointer" onClick={() => dispatch(deleteCart(item))} />
+                <img src={item.img} alt="" className="w-16 h-16 object-cover pt-2 cursor-pointer" 
+                  onClick={() => {
+                    dispatch(deleteCart(item));
+                    message.success("Product deleted in the cart.");
+                  }} />
 
                 <div className="flex flex-col ml-2">
                   <b>{item.title}</b>
@@ -34,6 +38,7 @@ const CartTotals = () => {
                     if (item.quantity === 1) {
                       if (window.confirm("Are you sure ?")) {
                         dispatch(decrase(item));
+                        message.success("Product deleted in the cart.");
                       }
                     }
 
@@ -70,8 +75,18 @@ const CartTotals = () => {
       </div>
 
       <div className="py-4 px-2">
-        <Button className="w-full" type="primary" size="large">Create Order</Button>
-        <Button className="w-full mt-2 flex items-center justify-center" type="primary" size="large" icon={<ClearOutlined />} danger>Clean</Button>
+        <Button className="w-full" type="primary" size="large"
+        disabled={cart.cartItems.length === 0}
+        >Create Order</Button>
+        
+        <Button className="w-full mt-2 flex items-center justify-center" type="primary" size="large" icon={<ClearOutlined />} danger
+         disabled={cart.cartItems.length === 0}
+         onClick={() => {
+          if (window.confirm("Are you sure?")) {
+            dispatch(reset());
+            message.success("Cart is success cleaned.")
+          }
+         }} >Clean</Button>
       </div>
     </div>
   )
