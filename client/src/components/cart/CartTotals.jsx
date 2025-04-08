@@ -2,7 +2,7 @@ import { Button } from "antd";
 import { ClearOutlined, MinusCircleOutlined, PlusCircleOutlined } from "@ant-design/icons";
 import { useSelector } from "react-redux";
 import { useDispatch } from "react-redux";
-import { deleteCart } from "../../redux/cartSlice";
+import { deleteCart, increase, decrase } from "../../redux/cartSlice";
 
 const CartTotals = () => {
 
@@ -15,7 +15,7 @@ const CartTotals = () => {
 
       <ul className="cart-items px-2 flex flex-col gap-y-3 py-2 overflow-y-auto">
         {
-          cart.cartItems.map((item) => (
+          cart.cartItems.length > 0 ? cart.cartItems.map((item) => (
             <li className="cart-item flex justify-between" key={item._id}>
               <div className="flex items-center">
                 <img src={item.img} alt="" className="w-16 h-16 object-cover pt-2 cursor-pointer" onClick={() => dispatch(deleteCart(item))} />
@@ -26,13 +26,24 @@ const CartTotals = () => {
                 </div>
               </div>
 
-              <div className="flex items-center gap-x-1">
-                <Button className="w-full flex items-center justify-center !rounded-full" type="primary" size="small" icon={<PlusCircleOutlined />} />
-                <span className="font-bold">{item.quantity}</span>
-                <Button className="w-full flex items-center justify-center !rounded-full" type="primary" size="small" icon={<MinusCircleOutlined />} />
+              <div className="flex items-center">
+                <Button className="w-full flex items-center justify-center !rounded-full" type="primary" size="small" icon={<PlusCircleOutlined />} onClick={() => dispatch(increase(item))} />
+                <span className="font-bold w-6 inline-block text-center">{item.quantity}</span>
+                <Button className="w-full flex items-center justify-center !rounded-full" type="primary" size="small" icon={<MinusCircleOutlined />} 
+                  onClick={() => {
+                    if (item.quantity === 1) {
+                      if (window.confirm("Are you sure ?")) {
+                        dispatch(decrase(item));
+                      }
+                    }
+
+                    if (item.quantity > 1) {
+                      dispatch(decrase(item));
+                    }
+                  }} />
               </div>
           </li>
-          ))
+          )) : "Your cart is empty..."
         }
       </ul>
 
