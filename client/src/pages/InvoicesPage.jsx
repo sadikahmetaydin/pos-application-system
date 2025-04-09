@@ -78,7 +78,7 @@ return (
 
       <h1 className="text-4xl font-bold text-center mb-4">Invoices</h1>
 
-      <Table dataSource={invoiceItems} columns={columns} bordered pagination={false} />
+      <Table dataSource={invoiceItems} columns={columns} bordered pagination={false} scroll={{x: 1000, y: 300}} />
     </div>
 
     <PrintInvoice isModalOpen={isModalOpen} setIsModalOpen={setIsModalOpen} customer={customer} />
