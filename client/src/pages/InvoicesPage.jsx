@@ -6,7 +6,8 @@ import PrintInvoice from "../components/invoices/PrintInvoice";
 const InvoicesPage = () => {
      
 const [isModalOpen, setIsModalOpen] = useState(false);
-const [invoiceItems, setInvoiceItems] = useState();
+const [invoiceItems, setInvoiceItems] = useState([]);
+const [customer, setCustomer] = useState();
 
 useEffect(() => {
   const getInvoices = async () => {
@@ -22,8 +23,6 @@ useEffect(() => {
   getInvoices();
 }, [])
 
-
-
 const columns = [
   {
     title: 'Customer Name',
@@ -37,8 +36,8 @@ const columns = [
   },
   {
     title: 'Creation Date',
-    dataIndex: 'createdAt',
-    key: 'createdAt',
+    dataIndex: "createdAt",
+    key: "createdAt",
     render: (text) => {
       return <span>{text.substring(0, 10)}</span>
     }
@@ -60,8 +59,13 @@ const columns = [
     title: "Actions",
     dataIndex: "action",
     key: "action",
-    render: (text) => {
-      return <Button type="link" className="pl-0" onClick={() => setIsModalOpen(true)}>Print</Button>
+    render: (_, record) => {
+      return <Button type="link" className="pl-0" 
+      onClick={() => {
+        setIsModalOpen(true);
+        setCustomer(record);
+      }}
+      >Print</Button>
     } 
   },
 ];
@@ -77,7 +81,7 @@ return (
       <Table dataSource={invoiceItems} columns={columns} bordered pagination={false} />
     </div>
 
-    <PrintInvoice isModalOpen={isModalOpen} setIsModalOpen={setIsModalOpen} />
+    <PrintInvoice isModalOpen={isModalOpen} setIsModalOpen={setIsModalOpen} customer={customer} />
     </>
   )
 }

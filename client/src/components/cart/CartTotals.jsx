@@ -50,7 +50,7 @@ const CartTotals = () => {
                   }} />
               </div>
           </li>
-          )) : "Your cart is empty..."
+          )).reverse() : "Your cart is empty..."
         }
       </ul>
 

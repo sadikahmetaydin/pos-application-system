@@ -1,6 +1,6 @@
 import { Button, Modal } from "antd"
 
-const PrintInvoices = ({isModalOpen, setIsModalOpen}) => {
+const PrintInvoices = ({isModalOpen, setIsModalOpen, customer}) => {
 
   return (
     <>
@@ -33,12 +33,12 @@ const PrintInvoices = ({isModalOpen, setIsModalOpen}) => {
                   <div className="text-md text-slate-500">
                     <div>
                       <p className="font-bold text-slate-700">Invoice Number:</p>
-                      <p>00041</p>
+                      <p>000{Math.floor(Math.random() * 100)}</p>
                     </div>
 
                     <div>
                       <p className="font-bold text-slate-700">Date of Issue:</p>
-                      <p>2025-03-29</p>
+                      <p>{customer?.createdAt.substring(0, 10)}</p>
                     </div>
                   </div>
 
@@ -70,35 +70,41 @@ const PrintInvoices = ({isModalOpen, setIsModalOpen}) => {
                   </thead>
 
                   <tbody>
-                    <tr className="border-b border-t border-slate-200">
-                      <td className="py-4 sm:table-cell hidden">
-                        <img src="https://i.lezzet.com.tr/images-xxlarge-secondary/elma-nasil-yenir-221135ca-f383-474c-a4f5-ad02a45db978.jpg" alt="" 
-                          className="w-12 h-12 object-cover"
-                        />
-                      </td>
+                    {
+                      customer?.cartItems.map((item) => (
+                        <tr className="border-b border-t border-slate-200">
+                          <td className="py-4 sm:table-cell hidden">
+                            <img src={item.img} alt="" 
+                              className="w-12 h-12 object-cover"
+                            />
+                          </td>
 
-                      <td className="py-4 sm:table-cell hidden">
-                        <span>Apple</span>
-                      </td>
+                          <td className="py-4 sm:table-cell hidden">
+                            <span>{item.title}</span>
+                          </td>
 
-                      {/* Small Screen */}
-                      <td className="py-4 sm:hidden" colSpan={4}>
-                        <span>Apple</span>
-                      </td>
+                          {/* Small Screen */}
+                          <td className="py-4 sm:hidden" colSpan={4}>
+                            <span>{item.title}</span>
+                          </td>
 
-                      <td className="py-4 text-center sm:table-cell hidden">
-                        <span>5₺</span>
-                      </td>
+                          <td className="py-4 text-center sm:table-cell hidden">
+                            <span>{item.price.toFixed(2)}₺</span>
+                          </td>
 
-                      <td className="py-4 sm:text-center text-right sm:table-cell hidden">
-                        <span>1</span>
-                      </td>
+                          <td className="py-4 sm:text-center text-right sm:table-cell hidden">
+                            <span>{item.quantity}</span>
+                          </td>
 
-                      <td className="py-4 text-end">
-                        <span>5.00₺</span>
-                      </td>
-                    </tr>
+                          <td className="py-4 text-end">
+                            <span>{(item.price * item.quantity).toFixed(2)}₺</span>
+                          </td>
+                      </tr>
+                      ))
+                    }
                   </tbody>
+
+
 
                   <tfoot>
                     <tr>
@@ -112,7 +118,7 @@ const PrintInvoices = ({isModalOpen, setIsModalOpen}) => {
                       </th>
 
                       <th className="text-right pt-4" scope="row">
-                        <span className="font-normal text-slate-700">36₺</span>
+                        <span className="font-normal text-slate-700">{customer?.subTotal}₺</span>
                       </th>
                     </tr>
 
@@ -127,7 +133,7 @@ const PrintInvoices = ({isModalOpen, setIsModalOpen}) => {
                       </th>
 
                       <th className="text-right pt-3"scope="row">
-                        <span className="font-normal text-red-600">4.88₺</span>
+                        <span className="font-normal text-red-600">+{customer?.tax}₺</span>
                       </th>
                     </tr>
 
@@ -142,7 +148,7 @@ const PrintInvoices = ({isModalOpen, setIsModalOpen}) => {
                       </th>
 
                       <th className="text-right pt-3"scope="row">
-                        <span className="font-normal text-slate-700">40.88₺</span>
+                        <span className="font-normal text-slate-700">{customer?.totalAmount}₺</span>
                       </th>
                     </tr>
                   </tfoot>
