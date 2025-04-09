@@ -98,26 +98,28 @@ const CartPage = () => {
       <Header />
 
       <div className="px-6">
-        <Table dataSource={cart.cartItems} columns={columns} bordered pagination={false} />
+        <Table dataSource={cart.cartItems} columns={columns} bordered pagination={false} scroll={{x: 1200, y: 300}} />
 
         <div className="cart-total flex justify-end mt-4">
           <Card className="w-72">
             <div className="flex justify-between">
               <span>Subtotal</span>
-              <span>549.00₺</span>
+              <span>{cart.total > 0 ? (cart.total).toFixed(2) : 0}₺</span>
             </div>
 
             <div className="flex justify-between my-2">
-              <span>TAX Total %8</span>
-              <span className="text-red-600">+43.92₺</span>
+              <span>TAX %{cart.tax}</span>
+              <span className="text-red-600">{(cart.total * cart.tax) / 100 > 0 ? "+" + ((cart.total * cart.tax) / 100).toFixed(2) : 0}₺</span>
             </div>
 
             <div className="flex justify-between">
               <b>Total</b>
-              <b>592.92₺</b>
+              <b>{cart.total + (cart.total * cart.tax) / 100 > 0 ? (cart.total + (cart.total * cart.tax) / 100).toFixed(2) : 0}₺</b>
             </div>
 
-            <Button className="mt-4 w-full" type="primary" size="large" onClick={() => setIsModalOpen(true)}>Create Order</Button>
+            <Button className="mt-4 w-full" type="primary" size="large" onClick={() => setIsModalOpen(true)}
+              disabled={cart.cartItems.length === 0}
+              >Create Order</Button>
           </Card>
         </div>
       </div>

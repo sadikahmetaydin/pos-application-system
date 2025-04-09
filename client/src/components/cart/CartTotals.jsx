@@ -3,11 +3,13 @@ import { ClearOutlined, MinusCircleOutlined, PlusCircleOutlined } from "@ant-des
 import { useSelector } from "react-redux";
 import { useDispatch } from "react-redux";
 import { deleteCart, increase, decrase, reset } from "../../redux/cartSlice";
+import { useNavigate } from "react-router-dom";
 
 const CartTotals = () => {
 
   const cart = useSelector((state) => state.cart);
   const dispatch = useDispatch();
+  const navigate = useNavigate();
 
   return (
     <div className="cart h-full max-h-[calc(100vh_-_90px)] flex flex-col">
@@ -77,6 +79,7 @@ const CartTotals = () => {
       <div className="py-4 px-2">
         <Button className="w-full" type="primary" size="large"
         disabled={cart.cartItems.length === 0}
+        onClick={() => navigate("/cart")}
         >Create Order</Button>
         
         <Button className="w-full mt-2 flex items-center justify-center" type="primary" size="large" icon={<ClearOutlined />} danger
