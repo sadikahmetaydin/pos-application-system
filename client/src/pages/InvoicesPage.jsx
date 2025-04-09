@@ -1,43 +1,68 @@
 import Header from "../components/header/Header"
 import { Button, Table } from "antd";
-import { Card } from 'antd';
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import PrintInvoice from "../components/invoices/PrintInvoice";
 
 const InvoicesPage = () => {
      
 const [isModalOpen, setIsModalOpen] = useState(false);
+const [invoiceItems, setInvoiceItems] = useState();
 
-const dataSource = [
-  {
-    key: '1',
-    name: 'Mike',
-    age: 32,
-    address: '10 Downing Street',
-  },
-  {
-    key: '2',
-    name: 'John',
-    age: 42,
-    address: '10 Downing Street',
-  },
-];
+useEffect(() => {
+  const getInvoices = async () => {
+    try {
+      const res = await fetch("http://localhost:5000/api/invoices/get-all");
+      const data = await res.json();
+      setInvoiceItems(data);
+    } catch (error) {
+      console.log(error);
+    }
+  };
+
+  getInvoices();
+}, [])
+
+
 
 const columns = [
   {
-    title: 'Name',
-    dataIndex: 'name',
-    key: 'name',
+    title: 'Customer Name',
+    dataIndex: 'customerName',
+    key: 'customerName',
   },
   {
-    title: 'Age',
-    dataIndex: 'age',
-    key: 'age',
+    title: 'Phone Numbers',
+    dataIndex: 'customerPhoneNumber',
+    key: 'customerPhoneNumber',
   },
   {
-    title: 'Address',
-    dataIndex: 'address',
-    key: 'address',
+    title: 'Creation Date',
+    dataIndex: 'createdAt',
+    key: 'createdAt',
+    render: (text) => {
+      return <span>{text.substring(0, 10)}</span>
+    }
+  },
+  {
+    title: "Payment Method",
+    dataIndex: "paymentMode",
+    key: "paymentMode",
+  },
+  {
+    title: "Total Price",
+    dataIndex: "totalAmount",
+    key: "totalAmount",
+    render: (text) => {
+      return <span>{text}₺</span>
+    } 
+  },
+  {
+    title: "Actions",
+    dataIndex: "action",
+    key: "action",
+    render: (text) => {
+      return <Button type="link" className="pl-0" onClick={() => setIsModalOpen(true)}>Print</Button>
+    } 
   },
 ];
 
@@ -49,15 +74,7 @@ return (
 
       <h1 className="text-4xl font-bold text-center mb-4">Invoices</h1>
 
-      <Table dataSource={dataSource} columns={columns} bordered pagination={false} />
-
-      <div className="cart-total flex justify-end mt-4">
-        <Card className="w-72">
-          
-
-          <Button className="mt-4 w-full" type="primary" size="large" onClick={() => setIsModalOpen(true)}>Print</Button>
-        </Card>
-      </div>
+      <Table dataSource={invoiceItems} columns={columns} bordered pagination={false} />
     </div>
 
     <PrintInvoice isModalOpen={isModalOpen} setIsModalOpen={setIsModalOpen} />
