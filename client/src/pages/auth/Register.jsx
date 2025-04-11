@@ -20,7 +20,7 @@ const Register = () => {
       });
 
       if (res.status === 200) {
-        message.success("Registration process successful.");
+        message.success("Registration process successfully.");
         navigate("/login");
         setLoading(false);
       }
