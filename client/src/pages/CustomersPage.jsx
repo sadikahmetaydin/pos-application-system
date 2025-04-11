@@ -1,38 +1,43 @@
+import { useEffect, useState } from "react";
 import Header from "../components/header/Header"
 import { Table } from "antd";
 
 const CustomersPage = () => {
-     
-const dataSource = [
-  {
-    key: '1',
-    name: 'Mike',
-    age: 32,
-    address: '10 Downing Street',
-  },
-  {
-    key: '2',
-    name: 'John',
-    age: 42,
-    address: '10 Downing Street',
-  },
-];
 
+const [invoiceItems, setInvoiceItems] = useState([]);
+
+useEffect(() => {
+  const getInvoices = async () => {
+    try {
+      const res = await fetch("http://localhost:5000/api/invoices/get-all");
+      const data = await res.json();
+      setInvoiceItems(data);
+    } catch (error) {
+      console.log(error);
+    }
+  };
+
+  getInvoices();
+}, [])
+     
 const columns = [
   {
-    title: 'Name',
-    dataIndex: 'name',
-    key: 'name',
+    title: 'Customer Name',
+    dataIndex: 'customerName',
+    key: 'customerName',
   },
   {
-    title: 'Age',
-    dataIndex: 'age',
-    key: 'age',
+    title: 'Customer Phone Number',
+    dataIndex: 'customerPhoneNumber',
+    key: 'customerPhoneNumber',
   },
   {
-    title: 'Address',
-    dataIndex: 'address',
-    key: 'address',
+    title: 'Transaction Date',
+    dataIndex: 'createdAt',
+    key: 'createdAt',
+    render: (text) => {
+      return <span>{text.substring(0, 10)}</span>
+    }
   },
 ];
 
@@ -44,7 +49,7 @@ return (
 
       <h1 className="text-4xl font-bold text-center mb-4">Customers</h1>
 
-      <Table dataSource={dataSource} columns={columns} bordered pagination={false} />
+      <Table dataSource={invoiceItems} columns={columns} bordered pagination={false} scroll={{x: 1000, y: 300}} />
 
     </div>
     </>
