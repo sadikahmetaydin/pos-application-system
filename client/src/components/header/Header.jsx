@@ -1,13 +1,22 @@
 import { SearchOutlined, HomeOutlined, ShoppingCartOutlined, CopyOutlined, UserOutlined, LogoutOutlined } from '@ant-design/icons';
 // import { BarChartOutlined} from '@ant-design/icons';
-import { Badge, Input } from "antd";
-import { Link } from "react-router-dom";
+import { Badge, Input, message } from "antd";
+import { Link, useNavigate } from "react-router-dom";
 import { useSelector } from 'react-redux';
 import "./index.css"
 
 const Header = () => {
 
   const cart = useSelector((state) => state.cart);
+  const navigate = useNavigate();
+
+  const logOut = () => {
+    if (window.confirm("Are you sure you want to exix?")) {
+      localStorage.removeItem("posUser");
+      navigate("/login");
+      message.success("The exit process is successful.");
+    }
+  }
 
   return (
     <div className="border-b mb-6">
@@ -54,10 +63,12 @@ const Header = () => {
             <span className="md:text-xs text-[10px]">Statistic</span>
           </Link> */}
 
-          <Link to={"/"} className="menu-link">
-            <LogoutOutlined className="md:text-2xl text-xl" />
-            <span className="md:text-xs text-[10px]">Logout</span>
-          </Link>
+          <div onClick={logOut}>
+            <Link className="menu-link">
+              <LogoutOutlined className="md:text-2xl text-xl" />
+              <span className="md:text-xs text-[10px]">Logout</span>
+            </Link>
+          </div>
         </div>
 
         {/* For Responsive Screen */}

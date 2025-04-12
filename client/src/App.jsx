@@ -15,13 +15,13 @@ function App() {
       <BrowserRouter>
         <Routes>
           <Route path="/" element={<RouteControl> <HomePage /> </RouteControl>} />
-          <Route path="/cart" element={<CartPage />} />
-          <Route path="/invoices" element={<InvoicesPage />} />
-          <Route path="/customers" element={<CustomersPage />} />
+          <Route path="/cart" element={<RouteControl> <CartPage /> </RouteControl>} />
+          <Route path="/invoices" element={<RouteControl> <InvoicesPage /> </RouteControl>} />
+          <Route path="/customers" element={<RouteControl> <CustomersPage /> </RouteControl>} />
           {/* <Route path="/statistic" element={<StatisticPage />} /> */}
-          <Route path="/products" element={<ProductPage />} />
-          <Route path="/register" element={<Register />} />
-          <Route path="/login" element={<Login />} />
+          <Route path="/products" element={<RouteControl> <ProductPage /> </RouteControl>} />
+          <Route path="/register" element={ <Register /> } />
+          <Route path="/login" element={ <Login /> } />
         </Routes>
       </BrowserRouter>
     </>
