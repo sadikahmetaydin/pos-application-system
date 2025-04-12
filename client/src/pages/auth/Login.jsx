@@ -9,6 +9,9 @@ const Login = () => {
   const [loading, setLoading] = useState(false);
 
   const onFinish = async (values) => {
+
+    setLoading(true);
+
     try {
       const res = await fetch("http://localhost:5000/api/auth/login", {
         method: "POST",
@@ -19,7 +22,7 @@ const Login = () => {
       const user = await res.json();
 
       if (res.status === 200) {
-        localStorage.setItem("postUser",
+        localStorage.setItem("posUser",
           JSON.stringify({ username: user.username, email: user.email })
         );
         message.success("Login is successfully.");
