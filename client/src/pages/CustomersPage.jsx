@@ -1,12 +1,12 @@
 import { useEffect, useRef, useState } from "react";
 import Header from "../components/header/Header"
-import { Button, Input, Space, Table } from "antd";
+import { Button, Input, Space, Spin, Table } from "antd";
 import { SearchOutlined } from "@ant-design/icons";
 import Highlighter from 'react-highlight-words';
 
 const CustomersPage = () => {
 
-const [invoiceItems, setInvoiceItems] = useState([]);
+const [invoiceItems, setInvoiceItems] = useState();
 const [searchText, setSearchText] = useState("");
 const [searchedColumn, setSearchedColumn] = useState("");
 const searchInput = useRef(null);
@@ -140,14 +140,15 @@ return (
   <>
     <Header />
 
-    <div className="px-6">
-
-      <h1 className="text-4xl font-bold text-center mb-4">Customers</h1>
-
-      <Table dataSource={invoiceItems} columns={columns} bordered pagination={false} scroll={{x: 1000, y: 300}} />
-
-    </div>
-    </>
+    <h1 className="text-4xl font-bold text-center mb-4">Customers</h1>
+      {
+        invoiceItems ? (
+          <div className="px-6">
+            <Table dataSource={invoiceItems} columns={columns} bordered pagination={false} scroll={{x: 1000, y: 300}} />
+        </div>
+        ) : <Spin size="large" className="absolute h-screen w-screen top-1/2 flex justify-center" />
+      }
+  </>
   )
 }
 export default CustomersPage

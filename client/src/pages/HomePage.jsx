@@ -3,11 +3,12 @@ import CartTotals from "../components/cart/CartTotals";
 import Categories from "../components/categories/Categories";
 import Header from "../components/header/Header";
 import Products from "../components/products/Products";
+import { Spin } from "antd";
 
 const HomePage = () => {
 
-  const [categories, setCategories] = useState([]);
-  const [products, setProducts] = useState([]);
+  const [categories, setCategories] = useState();
+  const [products, setProducts] = useState();
   const [filtered, setFiltered] = useState([]);
   const [search, setSearch] = useState("");
 
@@ -43,21 +44,24 @@ const HomePage = () => {
     <>
       <Header setSearch={setSearch} />
 
-      {/* Home Page */}
-      <div className="home px-6 flex md:flex-row flex-col justify-between gap-10 md:pb-0 pb-24 h-screen">
-        {/* Categories */}
-        <div className="categories overflow-auto max-h-[calc(100vh_-_112px)] md:pb-10">
-          <Categories categories={categories} setCategories={setCategories} setFiltered={setFiltered} products={products} />
-        </div>
-        {/* Products */}
-        <div className="products flex-[8] max-h-[calc(100vh_-_112px)] overflow-y-auto pb-10 min-h-[500px]">
-          <Products categories={categories} filtered={filtered} products={products} setProducts={setProducts} search={search} />
-        </div>
-        {/* Cart Totals */}
-        <div className="cart-wrapper min-w-[300px] md:-mr-[24px] md:-mt-[24px] border">
-          <CartTotals />
-        </div>
-      </div>
+      {
+        products && categories ? (
+          <div className="home px-6 flex md:flex-row flex-col justify-between gap-10 md:pb-0 pb-24 h-screen">
+            {/* Categories */}
+            <div className="categories overflow-auto max-h-[calc(100vh_-_112px)] md:pb-10">
+              <Categories categories={categories} setCategories={setCategories} setFiltered={setFiltered} products={products} />
+            </div>
+            {/* Products */}
+            <div className="products flex-[8] max-h-[calc(100vh_-_112px)] overflow-y-auto pb-10 min-h-[500px]">
+              <Products categories={categories} filtered={filtered} products={products} setProducts={setProducts} search={search} />
+            </div>
+            {/* Cart Totals */}
+            <div className="cart-wrapper min-w-[300px] md:-mr-[24px] md:-mt-[24px] border">
+              <CartTotals />
+            </div>
+          </div>
+        ) : <Spin size="large" className="absolute h-screen w-screen top-1/2 flex justify-center" />
+      }
     </>
   );
 };
