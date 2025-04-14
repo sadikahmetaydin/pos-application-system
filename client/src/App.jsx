@@ -8,8 +8,17 @@ import Login from "./pages/auth/Login";
 import ProductPage from "./pages/ProductPage";
 // import StatisticPage from "./pages/StatisticPage";
 import "@ant-design/v5-patch-for-react-19";
+import { useSelector } from "react-redux";
+import { useEffect } from "react";
 
 function App() {
+
+  const cart = useSelector((state) => state.cart);
+
+  useEffect(() => {
+    localStorage.setItem("cart", JSON.stringify(cart));
+  }, [cart])
+
   return (
     <>
       <BrowserRouter>
