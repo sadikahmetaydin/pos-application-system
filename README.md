@@ -2,7 +2,7 @@
 A POS application system store website build with reactjs, tailwindcss and ant design.
 
 # 💡About this project 
-...
+In this project it consists of Front-end and Back-end parts. I used MERN Stack technologies and other dependencies. This website have a lots of features, like a create, read, update, delete and also register and login. For instance, you'll add some meat, fruit and drinks your basked and then after the create order, you'll see invoice your account. If you want increase your order amount, it's quitly easy just push the plus button and also decrease order amount push the minus button. There are four buttons in the home page, with those plus buttons will you add categories and products and other buttons will you update categories and products.
 
 
 ## ⚡Technologies
